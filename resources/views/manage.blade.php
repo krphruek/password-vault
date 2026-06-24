@@ -89,7 +89,6 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
 
     </div>
 </div>
-
 {{-- Tab: BU --}}
 <div class="manage-panel" id="panel-bu" style="display:none">
     <div class="manage-table-header">
