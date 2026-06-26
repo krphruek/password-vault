@@ -135,19 +135,38 @@ class ManageController extends Controller
     }
 
     public function updateAM(Request $request, string $id)
-    {
-        $user = User::where('role', 'am')->findOrFail($id);
-        $data = $request->validate([
-            'name'      => ['required', 'string', 'max:100'],
-            'is_active' => ['required'],
-        ]);
-        $user->update([
-            'name'      => $data['name'],
-            'is_active' => filter_var($data['is_active'], FILTER_VALIDATE_BOOLEAN),
-        ]);
-        Log::info('AM_UPDATED', ['user' => Auth::user()?->username, 'am_id' => $id, 'data' => $data]);
-        return response()->json(['success' => true]);
-    }
+{
+    $user = User::where('role', 'am')->findOrFail($id);
+
+    $rules = [
+        'name'      => ['required', 'string', 'max:100'],
+        'is_active' => ['required'],
+        'username'  => ['nullable', 'string', 'max:7', 'unique:users,username,' . $id . ',id'],
+        'pin'       => ['nullable', 'string', 'max:6'],
+    ];
+
+    $data = $request->validate($rules, [
+        'username.unique' => 'รหัสนี้มีคนใช้แล้ว',
+    ]);
+
+    $update = [
+        'name'      => $data['name'],
+        'is_active' => filter_var($data['is_active'], FILTER_VALIDATE_BOOLEAN),
+    ];
+
+    if (!empty($data['username'])) $update['username'] = $data['username'];
+    if (!empty($data['pin']))      $update['password'] = Hash::make($data['pin']);
+
+    $user->update($update);
+
+    Log::info('AM_UPDATED', [
+        'user'    => Auth::user()?->username,
+        'am_id'   => $id,
+        'changed' => array_keys($update),
+    ]);
+
+    return response()->json(['success' => true]);
+}
 
     public function deleteAM(string $id)
     {

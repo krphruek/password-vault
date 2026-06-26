@@ -514,7 +514,6 @@ body {
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-    contain: layout style;
     position: fixed;
     top: 0;
     left: 0;
@@ -646,7 +645,6 @@ body {
 
 /* ===== MAIN CONTENT ===== */
 .main {
-    contain: layout;
     margin-left: 220px;
     flex: 1;
     min-height: 100vh;

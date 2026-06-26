@@ -89,6 +89,7 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
 
     </div>
 </div>
+
 {{-- Tab: BU --}}
 <div class="manage-panel" id="panel-bu" style="display:none">
     <div class="manage-table-header">
@@ -125,7 +126,10 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
                 <td>{{ $b['name'] }}</td>
                 <td class="manage-muted">{{ $b['count'] }} ร้าน</td>
                 <td class="manage-actions">
-                    <button class="manage-icon-btn" title="แก้ไข" onclick="openEditBU('{{ $b['name'] }}')">
+                    <button class="manage-icon-btn" title="แก้ไข" 
+                        onclick='openEditAM({{ $am->id }}, {{ json_encode($am->name) }},
+                         {{ json_encode($am->username) }}, {{ $am->is_active ? "true" : "false" }})'>
+                    {{-- <button class="manage-icon-btn" title="แก้ไข" onclick="openEditBU('{{ $b['name'] }}')"> --}}
                         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" 
                         viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
@@ -333,26 +337,54 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
     </div>
 </div>
 
-{{--  Popup: เพิ่ม / แก้ไข AM  --}}
+{{-- Popup: เพิ่ม / แก้ไข AM --}}
 <div class="modal-overlay" id="amOverlay" onclick="closePopup(event,'amOverlay')">
     <div class="modal" style="max-width:420px">
         <div class="modal-header">
             <div class="modal-store-name" id="amOverlayTitle">เพิ่ม AM ใหม่</div>
             <button class="modal-close" onclick="hidePopup('amOverlay')">✕</button>
         </div>
-        <div class="modal-body"><div class="edit-panel">
-            <input type="hidden" id="amId">
-            <div class="form-group" id="amUsernameGroup"><label class="form-label">รหัสพนักงาน (Username) *</label>
-                <input type="text" class="form-input" id="amUsername" placeholder="เช่น 9031" autocomplete="off"></div>
-            <div class="form-group"><label class="form-label">ชื่อ AM *</label>
-                <input type="text" class="form-input" id="amName" autocomplete="off"></div>
-            <div class="form-group" id="amPinGroup"><label class="form-label">PIN เริ่มต้น *</label>
-                <input type="text" class="form-input" id="amPin" placeholder="เช่น 123456" autocomplete="off"></div>
-            <label class="manage-toggle" id="amActiveGroup" style="display:none;margin-bottom:14px">
-                <input type="checkbox" id="amActive"><span>ใช้งาน</span>
-            </label>
-            <button class="btn-save" id="btnSaveAM" onclick="saveAM()">เพิ่ม AM</button>
-        </div></div>
+        <div class="modal-body">
+            <div class="edit-panel">
+                <input type="hidden" id="amId">
+
+                {{-- ตอนเพิ่ม: username ใหม่ --}}
+                <div class="form-group" id="amUsernameGroup">
+                    <label class="form-label">รหัสพนักงาน (Username) *</label>
+                    <input type="text" class="form-input" id="amUsername" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
+                </div>
+
+                {{-- ตอนแก้ไข: แสดง username เดิม แก้ได้ --}}
+                <div class="form-group" id="amUsernameEditGroup" style="display:none">
+                    <label class="form-label">รหัสพนักงาน (Username)</label>
+                    <input type="text" class="form-input" id="amUsernameEdit" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ชื่อ AM *</label>
+                    <input type="text" class="form-input" id="amName" autocomplete="off">
+                </div>
+
+                {{-- ตอนเพิ่ม: PIN บังคับกรอก --}}
+                <div class="form-group" id="amPinGroup">
+                    <label class="form-label">PIN เริ่มต้น *</label>
+                    <input type="text" class="form-input" id="amPin" placeholder="เช่น 123456" autocomplete="off">
+                </div>
+
+                {{-- ตอนแก้ไข: PIN ไม่บังคับ --}}
+                <div class="form-group" id="amPinEditGroup" style="display:none">
+                    <label class="form-label">PIN ใหม่</label>
+                    <input type="text" class="form-input" id="amPinEdit" placeholder="ปล่อยว่างถ้าไม่เปลี่ยน" autocomplete="off">
+                </div>
+
+                {{-- ตอนแก้ไข: สถานะ --}}
+                <label class="manage-toggle" id="amActiveGroup" style="display:none;margin-bottom:14px">
+                    <input type="checkbox" id="amActive"><span>ใช้งาน</span>
+                </label>
+
+                <button class="btn-save" id="btnSaveAM" onclick="createAM()">เพิ่ม AM</button>
+            </div>
+        </div>
     </div>
 </div>
 
