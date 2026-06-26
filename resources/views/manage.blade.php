@@ -351,13 +351,13 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
                 {{-- ตอนเพิ่ม: username ใหม่ --}}
                 <div class="form-group" id="amUsernameGroup">
                     <label class="form-label">รหัสพนักงาน (Username) *</label>
-                    <input type="text" class="form-input" id="amUsername" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
+                    <input type="text" class="form-input" id="amUsername" maxlength="7" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
                 </div>
 
                 {{-- ตอนแก้ไข: แสดง username เดิม แก้ได้ --}}
                 <div class="form-group" id="amUsernameEditGroup" style="display:none">
                     <label class="form-label">รหัสพนักงาน (Username)</label>
-                    <input type="text" class="form-input" id="amUsernameEdit" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
+                    <input type="text" class="form-input" id="amUsernameEdit" maxlength="7" placeholder="ใส่เฉพาะตัวเลข ได้สูงสุด 7ตัว" autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -368,13 +368,13 @@ const CSRF_TOKEN = '{{ csrf_token() }}';
                 {{-- ตอนเพิ่ม: PIN บังคับกรอก --}}
                 <div class="form-group" id="amPinGroup">
                     <label class="form-label">PIN เริ่มต้น *</label>
-                    <input type="text" class="form-input" id="amPin" placeholder="เช่น 123456" autocomplete="off">
+                    <input type="text" class="form-input" id="amPin" maxlength="6" placeholder="เช่น 123456" autocomplete="off">
                 </div>
 
                 {{-- ตอนแก้ไข: PIN ไม่บังคับ --}}
                 <div class="form-group" id="amPinEditGroup" style="display:none">
                     <label class="form-label">PIN ใหม่</label>
-                    <input type="text" class="form-input" id="amPinEdit" placeholder="ปล่อยว่างถ้าไม่เปลี่ยน" autocomplete="off">
+                    <input type="text" class="form-input" id="amPinEdit" maxlength="6" placeholder="ปล่อยว่างถ้าไม่เปลี่ยน" autocomplete="off">
                 </div>
 
                 {{-- ตอนแก้ไข: สถานะ --}}
