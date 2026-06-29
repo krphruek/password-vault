@@ -333,7 +333,7 @@ function removeCredRow(btn) {
     btn.closest(".cred-user-row").remove();
 }
 
-// ── Edit Store tab (admin) ────────────────────────────────
+// Edit Store tab (admin)
 function buildEditStoreForm(store) {
     const buOptions  = BUS_DATA.map(b  => `<option value="${esc(b)}"  ${store.bu===b?'selected':''}>${esc(b)}</option>`).join('');
     const rmOptions  = RMS_DATA.map(r  => `<option value="${esc(r)}"  ${store.rm===r?'selected':''}>${esc(r)}</option>`).join('');
@@ -452,7 +452,6 @@ async function saveStore(storeId) {
         BU: document.getElementById("editBU").value,
         RM: document.getElementById("editRM").value,
         am_user_id: document.getElementById("editAM").value,
-        // AM: document.getElementById("editAM").value,
         ช่องทางการขาย: document.getElementById("editChannel").value,
     };
     const btn = event.target;
@@ -487,7 +486,7 @@ async function saveStore(storeId) {
     btn.textContent = "บันทึกข้อมูลร้าน";
 }
 
-// ── Delete store ──────────────────────────────────────────
+// Delete store
 async function deleteStore(storeId) {
     if (!confirm(`ลบร้าน ${storeId} ใช่มั้ย? ข้อมูล credentials จะหายด้วย`))
         return;
@@ -508,7 +507,7 @@ async function deleteStore(storeId) {
     }
 }
 
-// ── Toggle PW / Copy / Toast ──────────────────────────────
+//Toggle PW / Copy / Toast 
 function togglePw(btn, elId, e) {
     e.stopPropagation();
     const el = document.getElementById(elId);
@@ -605,7 +604,7 @@ async function goPage(page) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ── Helpers ───────────────────────────────────────────────
+// Helpers
 function esc(s) {
     return String(s || "")
         .replace(/&/g, "&amp;")
@@ -626,6 +625,7 @@ function escAttr(s) {
 // Init
 showSkeleton();
 fetchStores(1);
+
 // Expose functions to global scope (required for inline onclick)
 window.openModal = openModal;
 window.closeModal = closeModal;

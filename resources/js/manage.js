@@ -223,18 +223,6 @@ function openEditAM(id, name, isActive) {
     document.getElementById('btnSaveAM').setAttribute('onclick', 'updateAM()');
     showPopup('amOverlay');
 }
-// function openEditAM(id, name, isActive) {
-//     document.getElementById('amOverlayTitle').textContent = 'แก้ไข AM';
-//     document.getElementById('amId').value = id;
-//     document.getElementById('amName').value = name;
-//     document.getElementById('amActive').checked = isActive;
-//     document.getElementById('amUsernameGroup').style.display = 'none';
-//     document.getElementById('amPinGroup').style.display = 'none';
-//     document.getElementById('amActiveGroup').style.display = 'flex';
-//     document.getElementById('btnSaveAM').textContent = 'บันทึก';
-//     document.getElementById('btnSaveAM').setAttribute('onclick', 'updateAM()');
-//     showPopup('amOverlay');
-// }
 
 async function createAM() {
     const username = document.getElementById('amUsername').value.trim();
@@ -281,22 +269,6 @@ async function updateAM() {
         else showToast(d.message || 'เกิดข้อผิดพลาด', 'error');
     } catch(e) { showToast('เกิดข้อผิดพลาด', 'error'); }
 }
-// async function updateAM() {
-//     const id = document.getElementById('amId').value;
-//     const name = document.getElementById('amName').value.trim();
-//     const isActive = document.getElementById('amActive').checked;
-//     if (!name) { showToast('กรอกชื่อ AM', 'error'); return; }
-
-//     try {
-//         const res = await fetch(`/manage/am/${id}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF_TOKEN },
-//             body: JSON.stringify({ name, is_active: isActive })
-//         });
-//         const d = await res.json();
-//         if (d.success) { showToast('✓ บันทึกเรียบร้อย'); setTimeout(() => reloadKeepTab(), 500); }
-//     } catch (e) { showToast('เกิดข้อผิดพลาด', 'error'); }
-// }
 
 async function saveAM() {
     const id = document.getElementById('amId').value;

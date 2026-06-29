@@ -186,7 +186,6 @@ public function updateStore(Request $request, string $storeId)
             'BU'            => ['nullable', 'string'],
             'RM'            => ['nullable', 'string'],
             'am_user_id'    => ['nullable', 'string'],
-            // 'AM'            => ['nullable', 'string'],
             'ช่องทางการขาย' => ['nullable', 'string'],
         ]);
 
@@ -301,7 +300,7 @@ public function exportCredentials(): StreamedResponse
     ]);
     
     }
-    // ── Staff: Import ─────────────────────────────
+    //Staff: Import
 public function importCredentials(Request $request)
     {
     $request->validate(['file' => ['required', 'file', 'mimes:xlsx,xls,csv']]);
@@ -330,7 +329,7 @@ public function importCredentials(Request $request)
         
         return response()->json(['success' => true, 'imported' => $imported, 'errors' => $errors]);
     }
-    // ── Admin: Import ─────────────────────────────
+    // Admin: Import
 public function importStores(Request $request)
     {
         $request->validate(['file' => ['required', 'file', 'mimes:xlsx,xls,csv']]);
